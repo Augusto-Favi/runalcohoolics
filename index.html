@@ -435,25 +435,31 @@
         // Initialize carousel
         updateCarousel();
 
-                // Mobile menu toggle
+        // Mobile menu toggle
+        const menu = document.getElementById('mobileMenu');
+        const hamburger = document.querySelector('.hamburger');
 
-                const menu = document.getElementById('mobileMenu');
+        function toggleMenu() {
+            console.log('toggleMenu called');
+            if (menu && hamburger) {
+                menu.classList.toggle('active');
+                hamburger.classList.toggle('active');
+                console.log('Menu active:', menu.classList.contains('active'));
+            }
+        }
 
-                const hamburger = document.querySelector('.hamburger');
+        // Make function globally accessible
+        window.toggleMenu = toggleMenu;
 
-        
+        // Add touch event listener for iOS
+        if (hamburger) {
+            hamburger.addEventListener('touchstart', function(e) {
+                e.preventDefault();
+                toggleMenu();
+            }, { passive: false });
+        }
 
-                function toggleMenu() {
-
-                    menu.classList.toggle('active');
-
-                    hamburger.classList.toggle('active');
-
-                }
-
-        
-
-                // Close menu when clicking outside
+        // Close menu when clicking outside
 
                 document.addEventListener('click', function(event) {
 

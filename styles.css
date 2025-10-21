@@ -162,14 +162,17 @@ nav {
     max-height: 0;
     overflow: hidden;
     opacity: 0;
-    transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out, padding 0.3s ease-in-out;
+    visibility: hidden;
+    transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out, padding 0.3s ease-in-out, visibility 0.3s;
     z-index: 30;
+    -webkit-overflow-scrolling: touch;
 }
 
 .nav-mobile-menu.active {
     max-height: 500px;
     opacity: 1;
     padding: 20px;
+    visibility: visible;
 }
 
 .nav-link {
