@@ -144,10 +144,6 @@ section {
 
 /* Navigation */
 .nav-mobile-menu {
-    display: none;
-}
-
-.nav-mobile-menu.active {
     display: flex;
     flex-direction: column;
     position: absolute;
@@ -159,6 +155,14 @@ section {
     padding: 20px;
     gap: 16px;
     border-top: 2px solid var(--accent-gold);
+    transform: translateY(-100%);
+    transition: transform 0.3s ease-in-out, visibility 0.3s ease-in-out;
+    visibility: hidden;
+}
+
+.nav-mobile-menu.active {
+    transform: translateY(0);
+    visibility: visible;
 }
 
 .nav-link {
@@ -185,6 +189,18 @@ section {
     height: 2px;
     background-color: var(--text-cream);
     transition: all 0.3s ease;
+}
+
+.hamburger.active span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
 }
 
 @media (min-width: 768px) {
