@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Runalcoholics Club</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            overflow-x: hidden;
+            max-width: 100%;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #1a1a1a;
+            overflow-x: hidden;
+            color: #E8DCC8;
+            max-width: 100vw;
+            position: relative;
+        }
+
+        section {
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 100%;
+        }
+
+        /* Better color palette */
+        :root {
+            --bg-dark: #1a1a1a;
+            --bg-brown: #2d1f16;
+            --bg-teal: #1e6b6b;
+            --text-cream: #E8DCC8;
+            --text-light: #f5f5f5;
+            --accent-gold: #d4a574;
+            --accent-teal: #4db8b8;
+        }
+
+        .hero-section {
+            background: linear-gradient(180deg, #2d1f16 0%, #1a1a1a 100%);
+            min-height: 100vh;
+        }
+
+        .section-dark {
+            background-color: var(--bg-dark);
+        }
+
+        .section-brown {
+            background-color: var(--bg-brown);
+        }
+
+        .section-teal {
+            background-color: var(--bg-teal);
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 14px 32px;
+            font-weight: 600;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            display: inline-block;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background-color: var(--accent-gold);
+            color: #1a1a1a;
+        }
+
+        .btn-primary:hover {
+            background-color: #c49563;
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--text-cream);
+            border: 2px solid var(--text-cream);
+        }
+
+        .btn-secondary:hover {
+            background-color: var(--text-cream);
+            color: #1a1a1a;
+        }
+
+        .btn-teal {
+            background-color: var(--accent-teal);
+            color: #1a1a1a;
+        }
+
+        .btn-teal:hover {
+            background-color: #3da3a3;
+        }
+
+        /* Cards */
+        .card {
+            background: rgba(45, 31, 22, 0.6);
+            border: 2px solid rgba(232, 220, 200, 0.2);
+            border-radius: 16px;
+            padding: 24px;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent-gold);
+            box-shadow: 0 8px 24px rgba(212, 165, 116, 0.15);
+        }
+
+        .card-light {
+            background: var(--text-cream);
+            color: #1a1a1a;
+            border-color: #1a1a1a;
+        }
+
+        .card-light:hover {
+            border-color: var(--accent-gold);
+        }
+
+        /* Logo */
+        .logo-container {
+            max-width: 100px;
+        }
+
+        @media (min-width: 768px) {
+            .logo-container {
+                max-width: 140px;
+            }
+        }
+
+        .logo-hero {
+            max-width: 180px;
+            margin: 0 auto;
+        }
+
+        @media (min-width: 768px) {
+            .logo-hero {
+                max-width: 250px;
+            }
+        }
+
+        /* Navigation */
+        .nav-mobile-menu {
+            display: none;
+        }
+
+        .nav-mobile-menu.active {
+            display: flex;
+            flex-direction: column;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: rgba(26, 26, 26, 0.98);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            gap: 16px;
+            border-top: 2px solid var(--accent-gold);
+        }
+
+        .nav-link {
+            color: var(--text-cream);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            padding: 8px 0;
+        }
+
+        .nav-link:hover {
+            color: var(--accent-gold);
+        }
+
+        .hamburger {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            width: 24px;
+            height: 2px;
+            background-color: var(--text-cream);
+            transition: all 0.3s ease;
+        }
+
+        @media (min-width: 768px) {
+            .hamburger {
+                display: none;
+            }
+
+            .nav-desktop {
+                display: flex !important;
+            }
+        }
+
+        /* Typography */
+        h1, h2 {
+            font-family: 'Luckiest Guy', cursive;
+            letter-spacing: 0.02em;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        h1 {
+            font-size: 2.75rem !important;
+            font-weight: 400;
+            line-height: 1.1;
+        }
+
+        @media (min-width: 768px) {
+            h1 {
+                font-size: 5rem !important;
+            }
+        }
+
+        h2 {
+            font-size: 2rem !important;
+            font-weight: 400;
+            line-height: 1.1;
+        }
+
+        @media (min-width: 768px) {
+            h2 {
+                font-size: 2rem !important;
+            }
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        @media (min-width: 768px) {
+            h3 {
+                font-size: 2rem;
+            }
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Image styles */
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .tshirt-image {
+            border-radius: 12px;
+            max-width: 100%;
+            height: auto;
+            object-fit: contain;
+        }
+
+        .carousel-item {
+            box-sizing: border-box;
+        }
+
+        .carousel-wrapper {
+            width: 100%;
+            overflow: hidden;
+        }
+
+        /* Utilities */
+        .accent-gold {
+            color: var(--accent-gold);
+        }
+
+        .accent-teal {
+            color: var(--accent-teal);
+        }
+
+        /* Form inputs */
+        input, textarea {
+            width: 100%;
+            padding: 14px 16px;
+            border-radius: 8px;
+            border: 2px solid rgba(232, 220, 200, 0.3);
+            background: rgba(26, 26, 26, 0.5);
+            color: var(--text-cream);
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s ease;
+        }
+
+        input::placeholder, textarea::placeholder {
+            color: rgba(232, 220, 200, 0.5);
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--accent-gold);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 bg-dark/95 backdrop-blur-md z-50 border-b-2 border-gold" style="background: rgba(26, 26, 26, 0.95); border-color: var(--accent-gold);">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <div class="logo-container">
+                    <img src="./img/logo_circle.png" alt="Runalcoholic Logo" style="filter: brightness(1.1);">
+                </div>
+
+                <!-- Desktop Menu -->
+                <div class="nav-desktop hidden md:flex gap-8">
+                    <a href="#corridas" class="nav-link">Corridas</a>
+                    <a href="#camisetas" class="nav-link">Camisetas</a>
+                    <a href="#historia" class="nav-link">Nossa História</a>
+                    <a href="#contato" class="nav-link">Contato</a>
+                </div>
+
+                <!-- Mobile Hamburger -->
+                <div class="hamburger md:hidden" onclick="toggleMenu()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div class="nav-mobile-menu" id="mobileMenu">
+                <a href="#corridas" class="nav-link" onclick="toggleMenu()">Corridas</a>
+                <a href="#camisetas" class="nav-link" onclick="toggleMenu()">Camisetas</a>
+                <a href="#historia" class="nav-link" onclick="toggleMenu()">Nossa História</a>
+                <a href="#contato" class="nav-link" onclick="toggleMenu()">Contato</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section flex items-center justify-center px-4 py-20 md:py-0">
+        <div class="container mx-auto text-center pt-20 md:pt-0">
+            <div class="logo-hero mb-8 md:mb-12 fade-in">
+                <img src="./img/logo_circle.png" alt="Runalcoholic">
+            </div>
+
+            <h1 class="mb-4 md:mb-6 fade-in" style="color: var(--text-cream);">
+                RUNALCOHOLICS CLUB
+            </h1>
+
+            <p class="text-xl md:text-3xl mb-8 md:mb-12 fade-in accent-gold font-medium">
+                Cansaço passa, ressaca ensina.
+            </p>
+
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center fade-in px-4">
+                <a href="#corridas" class="btn btn-primary w-full sm:w-auto">
+                    Próximas Corridas
+                </a>
+                <a href="#camisetas" class="btn btn-secondary w-full sm:w-auto">
+                    Ver Camisetas
+                </a>
+                <a href="https://chat.whatsapp.com/FSbHwW1bPSvLGtZY8uj5Yj" target="_blank" class="btn btn-teal w-full sm:w-auto flex items-center justify-center gap-2">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+                    </svg>
+                    WhatsApp
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Próximas Corridas Section -->
+    <section id="corridas" class="section-brown py-12 md:py-20">
+        <div class="container mx-auto px-4">
+            <h2 class="mb-8 md:mb-12 text-center fade-in" style="color: #f5f5f5; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">
+                🍻 Bora Correr <br>(e Brindar)?
+            </h2>
+
+            <div class="max-w-4xl mx-auto">
+                <div class="card-light p-6 md:p-10 fade-in">
+                    <div class="text-center mb-6 md:mb-8">
+                        <div class="text-5xl md:text-7xl mb-4">🍻🏃‍♂️</div>
+                        <h3 class="mb-3 md:mb-4">CORRE + BRINDA = RUMO AO DIA 31!</h3>
+                        <p class="text-xl md:text-2xl font-bold accent-gold">Sexta, 31 de Outubro</p>
+                    </div>
+
+                    <div class="text-base md:text-lg leading-relaxed space-y-4">
+                        <p class="font-semibold">
+                            Galera, na sexta, 31 de outubro, vamos fazer um corre especial de <span class="font-bold">4km passando por 4 bares diferentes</span> 🍻🏃‍♂️
+                        </p>
+
+                        <div class="bg-yellow-50 p-4 rounded-lg border-2 border-yellow-400">
+                            <p>👉 A ideia é gravar um vídeo de algo maior que está por vir nos próximos meses 👀🔥<br>
+                            Sem spoiler ainda, mas vai valer a pena!</p>
+                        </div>
+
+                        <div class="bg-gray-100 p-4 md:p-6 rounded-lg border-2 border-gray-300">
+                            <p class="font-bold mb-2">⚠️ Importante:</p>
+                            <p>
+                                Não temos parceria com nenhum dos bares (estamos tentando…fé), vamos por conta própria,
+                                na vibe de sempre correr, curtir e viver o espírito Runalcoholic 🍺
+                            </p>
+                        </div>
+
+                        <p class="text-center font-semibold pt-4">
+                            Tá liberado pra quem quiser ir só correr ou correr e brindar.<br>
+                            O importante é <span class="font-bold accent-gold">estar junto nessa!</span>
+                        </p>
+                    </div>
+
+                    <div class="text-center mt-6 md:mt-8">
+                        <a href="https://chat.whatsapp.com/FSbHwW1bPSvLGtZY8uj5Yj" target="_blank" class="btn btn-primary w-full sm:w-auto">
+                            Quero participar! 🍻
+                        </a>
+                    </div>
+                </div>
+
+                <p class="text-center mt-6 md:mt-8 fade-in opacity-75">
+                    Em breve, mais corridas e eventos! Fique ligado nas redes sociais.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Camisetas Section -->
+    <section id="camisetas" class="section-dark py-12 md:py-20">
+        <div class="container mx-auto px-4">
+            <h2 class="mb-8 md:mb-12 text-center fade-in" style="color: #f5f5f5; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">
+                👕 Vista a Camisa
+            </h2>
+
+            <!-- Carousel Container -->
+            <div class="max-w-4xl mx-auto relative">
+                <div class="carousel-wrapper overflow-hidden">
+                    <div class="carousel-track flex transition-transform duration-500 ease-in-out" id="carousel">
+                        <!-- Blue Shirt -->
+                        <div class="carousel-item w-full flex-shrink-0 px-4">
+                            <div class="card-light p-6 md:p-8 rounded-2xl">
+                                <div class="text-center mb-6">
+                                    <img src="img/blue_tshirt.jpg" alt="Camiseta Azul Runalcoholic" class="tshirt-image mx-auto mb-6" style="max-width: 100%; width: 400px; object-fit: contain;">
+                                    <h3 class="mb-4">Camiseta Oficial</h3>
+                                    <p class="text-lg md:text-xl mb-4 accent-gold font-semibold">
+                                        "PODE PASSAR, TO DE RESSACA"
+                                    </p>
+                                    <ul class="space-y-2 mb-6 text-left max-w-md mx-auto">
+                                        <li>✓ 100% Algodão</li>
+                                        <li>✓ Estampa de Alta Qualidade</li>
+                                        <li>✓ Conforto Premium</li>
+                                        <li>✓ Perfeita para correr</li>
+                                        <li>✓ Melhor ainda para brindar</li>
+                                    </ul>
+                                    <button class="btn btn-primary opacity-75 cursor-not-allowed" disabled>
+                                        Em breve
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- White Shirt -->
+                        <div class="carousel-item w-full flex-shrink-0 px-4">
+                            <div class="card-light p-6 md:p-8 rounded-2xl">
+                                <div class="text-center mb-6">
+                                    <img src="img/white_tshirt.jpg" alt="Camiseta Branca Runalcoholic" class="tshirt-image mx-auto mb-6" style="max-width: 100%; width: 400px; object-fit: contain;">
+                                    <h3 class="mb-4">Edição Branca</h3>
+                                    <p class="text-lg md:text-xl mb-4 accent-gold font-semibold">
+                                        Design clean com nosso mascote icônico.
+                                    </p>
+                                    <ul class="space-y-2 mb-6 text-left max-w-md mx-auto">
+                                        <li>✓ Tecido respirável</li>
+                                        <li>✓ Design minimalista</li>
+                                        <li>✓ Durabilidade garantida</li>
+                                        <li>✓ Tamanhos P ao GG</li>
+                                    </ul>
+                                    <button class="btn btn-primary opacity-75 cursor-not-allowed" disabled>
+                                        Em breve
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Black Shirt -->
+                        <div class="carousel-item w-full flex-shrink-0 px-4">
+                            <div class="card-light p-6 md:p-8 rounded-2xl">
+                                <div class="text-center mb-6">
+                                    <img src="img/black_tshirt.jpg" alt="Camiseta Preta Runalcoholic" class="tshirt-image mx-auto mb-6" style="max-width: 100%; width: 400px; object-fit: contain;">
+                                    <h3 class="mb-4">Edição Preta</h3>
+                                    <p class="text-lg md:text-xl mb-4 accent-gold font-semibold">
+                                        "PODE PASSAR, TO DE RESSACA"
+                                    </p>
+                                    <ul class="space-y-2 mb-6 text-left max-w-md mx-auto">
+                                        <li>✓ Estilo clássico</li>
+                                        <li>✓ Estampa frontal e traseira</li>
+                                        <li>✓ 100% Algodão</li>
+                                        <li>✓ Qualidade premium</li>
+                                        <li>✓ Para todas as ocasiões</li>
+                                    </ul>
+                                    <button class="btn btn-primary opacity-75 cursor-not-allowed" disabled>
+                                        Em breve
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Carousel Navigation -->
+                <button onclick="prevSlide()" class="carousel-nav carousel-prev absolute left-0 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white p-3 rounded-full transition-all z-10">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M15 18l-6-6 6-6"/>
+                    </svg>
+                </button>
+                <button onclick="nextSlide()" class="carousel-nav carousel-next absolute right-0 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/30 backdrop-blur-sm text-white p-3 rounded-full transition-all z-10">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M9 18l6-6-6-6"/>
+                    </svg>
+                </button>
+
+                <!-- Carousel Indicators -->
+                <div class="flex justify-center gap-2 mt-6">
+                    <button onclick="goToSlide(0)" class="carousel-indicator w-3 h-3 rounded-full bg-white/40 transition-all" data-index="0"></button>
+                    <button onclick="goToSlide(1)" class="carousel-indicator w-3 h-3 rounded-full bg-white/40 transition-all" data-index="1"></button>
+                    <button onclick="goToSlide(2)" class="carousel-indicator w-3 h-3 rounded-full bg-white/40 transition-all" data-index="2"></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- História Section -->
+    <section id="historia" class="section-dark py-12 md:py-20">
+        <div class="container mx-auto px-4">
+            <div class="max-w-4xl mx-auto">
+                <h2 class="mb-8 md:mb-12 text-center fade-in" style="color: #f5f5f5; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">
+                    🍺 Como Tudo Começou
+                </h2>
+
+                <div class="space-y-8 md:space-y-12 text-base md:text-lg leading-relaxed">
+                    <p class="fade-in">
+                        A Runalcoholic nasceu de uma contradição e de uma boa ressaca.
+                        Entre uma corrida de rua e uma cerveja no pós-prova, veio a ideia:
+                        e se ser atleta não significasse abrir mão da vida real?
+                    </p>
+
+                    <p class="fade-in">
+                        Tudo começou como um braço da <a href="https://www.instagram.com/runaholic_club/" target="_blank" class="accent-gold hover:underline">@runaholic_club</a>, uma marca que acreditou
+                        na nossa loucura. Eles nos deram espaço nas corridas, e ali surgiu a
+                        primeira equipe Runalcoholic — um grupo que corre forte, mas brinda
+                        mais forte ainda.
+                    </p>
+
+                    <p class="fade-in">
+                        Cansados do discurso perfeito das redes, das dietas impossíveis e do
+                        "modo atleta" de laboratório, decidimos criar algo diferente: um movimento
+                        de atletas híbridos, que bebem, correm, trabalham, erram e continuam
+                        tentando ser melhores.
+                    </p>
+
+                    <div class="card-light p-6 md:p-12 rounded-2xl mt-8 md:mt-16 fade-in">
+                        <p class="text-xl md:text-2xl font-semibold text-center mb-4">
+                            A Filosofia
+                        </p>
+                        <p class="text-lg md:text-xl text-center mb-4">
+                            Porque correr é mais sobre <span class="font-bold accent-gold">liberdade</span>
+                            do que sobre performance.
+                        </p>
+                        <p class="text-center">
+                            A Runalcoholic não nasceu para incentivar vícios.
+                            Nasceu para quebrar rótulos.
+                            Para provar que disciplina e prazer podem andar juntos.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contato Section -->
+    <section id="contato" class="section-teal py-12 md:py-20">
+        <div class="container mx-auto px-4">
+            <h2 class="mb-8 md:mb-12 text-center fade-in" style="color: #ffffff; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);">
+                💼 Quer Patrocinar?
+            </h2>
+
+            <div class="max-w-3xl mx-auto">
+                <p class="text-center text-lg md:text-xl mb-8 fade-in text-white opacity-90">
+                    Se você ou sua marca acredita na nossa loucura e quer apoiar o movimento Runalcoholic,
+                    vamos conversar! Estamos abertos a parcerias com bares, marcas esportivas e todos que
+                    curtem a vibe de correr e brindar.
+                </p>
+
+                <form class="space-y-4 md:space-y-6 mb-8 md:mb-12 fade-in">
+                    <input type="text" placeholder="Nome da empresa/marca" required>
+                    <input type="email" placeholder="E-mail de contato" required>
+                    <textarea placeholder="Conte-nos sobre sua proposta de patrocínio" required></textarea>
+                    <button type="button" class="btn btn-primary w-full" onclick="submitForm()">
+                        Enviar Proposta
+                    </button>
+                </form>
+
+                <div class="flex flex-col sm:flex-row justify-center items-center gap-4 fade-in">
+                    <a href="https://www.instagram.com/runalcoholic/" target="_blank" class="btn btn-secondary w-full sm:w-auto">
+                        Instagram
+                    </a>
+                    <a href="https://chat.whatsapp.com/FSbHwW1bPSvLGtZY8uj5Yj" target="_blank" class="btn btn-secondary w-full sm:w-auto">
+                        WhatsApp
+                    </a>
+                    <a href="mailto:contato@runalcaholics.com" class="btn btn-secondary w-full sm:w-auto">
+                        E-mail
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black py-12" style="border-top: 3px solid var(--accent-gold);">
+        <div class="container mx-auto px-4 text-center">
+            <div class="logo-container mb-6 mx-auto">
+                <img src="./img/logo_circle.png" alt="Runalcoholic Logo" style="filter: brightness(1.2);">
+            </div>
+            <h3 class="text-2xl md:text-3xl font-bold mb-4" style="color: var(--text-cream);">RUNALCOHOLIC</h3>
+            <p class="text-lg md:text-xl mb-8 accent-gold">
+                "Cansaço passa, ressaca ensina."
+            </p>
+
+            <div class="pt-8 mt-8 max-w-2xl mx-auto" style="border-top: 2px solid rgba(232, 220, 200, 0.2);">
+                <p class="mb-4 font-semibold" style="color: var(--text-cream);">
+                    Beba com responsabilidade.
+                </p>
+                <p class="text-lg md:text-xl font-bold accent-gold">
+                    Corra sem moderação.
+                </p>
+            </div>
+
+            <div class="mt-8 text-sm opacity-50" style="color: var(--text-cream);">
+                © 2025 Runalcoholic - Todos os direitos reservados
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Carousel functionality
+        let currentSlide = 0;
+        const totalSlides = 3;
+
+        function updateCarousel() {
+            const carousel = document.getElementById('carousel');
+            const indicators = document.querySelectorAll('.carousel-indicator');
+
+            carousel.style.transform = `translateX(-${currentSlide * 100}%)`;
+
+            indicators.forEach((indicator, index) => {
+                if (index === currentSlide) {
+                    indicator.classList.add('bg-white');
+                    indicator.classList.remove('bg-white/40');
+                } else {
+                    indicator.classList.remove('bg-white');
+                    indicator.classList.add('bg-white/40');
+                }
+            });
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateCarousel();
+        }
+
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            updateCarousel();
+        }
+
+        function goToSlide(index) {
+            currentSlide = index;
+            updateCarousel();
+        }
+
+        // Auto-play carousel
+        let autoplayInterval = setInterval(nextSlide, 5000);
+
+        // Pause autoplay on hover
+        document.querySelector('.carousel-wrapper')?.addEventListener('mouseenter', () => {
+            clearInterval(autoplayInterval);
+        });
+
+        document.querySelector('.carousel-wrapper')?.addEventListener('mouseleave', () => {
+            autoplayInterval = setInterval(nextSlide, 5000);
+        });
+
+        // Touch support for mobile
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        document.querySelector('.carousel-wrapper')?.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        document.querySelector('.carousel-wrapper')?.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            if (touchEndX < touchStartX - 50) nextSlide();
+            if (touchEndX > touchStartX + 50) prevSlide();
+        }
+
+        // Initialize carousel
+        updateCarousel();
+
+        // Mobile menu toggle
+        function toggleMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('active');
+        }
+
+        // Scroll animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach((el) => {
+            observer.observe(el);
+        });
+
+        // Form submission
+        function submitForm() {
+            alert('Obrigado! Em breve entraremos em contato!\n\nRunalcoholic - Cansaço passa, ressaca ensina.');
+        }
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    // Close mobile menu if open
+                    const menu = document.getElementById('mobileMenu');
+                    menu.classList.remove('active');
+
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
