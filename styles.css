@@ -158,6 +158,7 @@ section {
     transform: translateY(-100%);
     transition: transform 0.3s ease-in-out, visibility 0.3s ease-in-out;
     visibility: hidden;
+    z-index: 40;
 }
 
 .nav-mobile-menu.active {
