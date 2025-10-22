@@ -171,7 +171,7 @@
                                         "PODE PASSAR, TO DE RESSACA"
                                     </p>
                                     <ul class="space-y-2 mb-6 text-left max-w-md mx-auto">
-                                        <li>✓ 100% Algodão</li>
+                                        <li>✓ 100% Poliamida</li>
                                         <li>✓ Estampa de Alta Qualidade</li>
                                         <li>✓ Conforto Premium</li>
                                         <li>✓ Perfeita para correr</li>
@@ -194,10 +194,11 @@
                                         Design clean com nosso mascote icônico.
                                     </p>
                                     <ul class="space-y-2 mb-6 text-left max-w-md mx-auto">
-                                        <li>✓ Tecido respirável</li>
-                                        <li>✓ Design minimalista</li>
-                                        <li>✓ Durabilidade garantida</li>
-                                        <li>✓ Tamanhos P ao GG</li>
+                                        <li>✓ 100% Poliamida</li>
+                                        <li>✓ Estampa de Alta Qualidade</li>
+                                        <li>✓ Conforto Premium</li>
+                                        <li>✓ Perfeita para correr</li>
+                                        <li>✓ Melhor ainda para brindar</li>
                                     </ul>
                                     <button class="btn btn-primary opacity-75 cursor-not-allowed" disabled>
                                         Em breve
@@ -216,11 +217,34 @@
                                         "PODE PASSAR, TO DE RESSACA"
                                     </p>
                                     <ul class="space-y-2 mb-6 text-left max-w-md mx-auto">
-                                        <li>✓ Estilo clássico</li>
-                                        <li>✓ Estampa frontal e traseira</li>
-                                        <li>✓ 100% Algodão</li>
-                                        <li>✓ Qualidade premium</li>
-                                        <li>✓ Para todas as ocasiões</li>
+                                        <li>✓ 100% Poliamida</li>
+                                        <li>✓ Estampa de Alta Qualidade</li>
+                                        <li>✓ Conforto Premium</li>
+                                        <li>✓ Perfeita para correr</li>
+                                        <li>✓ Melhor ainda para brindar</li>
+                                    </ul>
+                                    <button class="btn btn-primary opacity-75 cursor-not-allowed" disabled>
+                                        Em breve
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Clone of Blue Shirt (for infinite loop) -->
+                        <div class="carousel-item w-full flex-shrink-0 px-4">
+                            <div class="card-light p-6 md:p-8 rounded-2xl">
+                                <div class="text-center mb-6">
+                                    <img src="img/blue_tshirt.jpg" alt="Camiseta Azul Runalcoholic" class="tshirt-image mx-auto mb-6" style="max-width: 100%; width: 400px; object-fit: contain;">
+                                    <h3 class="mb-4">Camiseta Oficial</h3>
+                                    <p class="text-lg md:text-xl mb-4 accent-gold font-semibold">
+                                        "PODE PASSAR, TO DE RESSACA"
+                                    </p>
+                                    <ul class="space-y-2 mb-6 text-left max-w-md mx-auto">
+                                        <li>✓ 100% Poliamida</li>
+                                        <li>✓ Estampa de Alta Qualidade</li>
+                                        <li>✓ Conforto Premium</li>
+                                        <li>✓ Perfeita para correr</li>
+                                        <li>✓ Melhor ainda para brindar</li>
                                     </ul>
                                     <button class="btn btn-primary opacity-75 cursor-not-allowed" disabled>
                                         Em breve
@@ -366,18 +390,27 @@
     </footer>
 
     <script>
-        // Carousel functionality
+        // Carousel functionality with true infinite loop (using cloned slide)
         let currentSlide = 0;
-        const totalSlides = 3;
+        const totalSlides = 3; // Real slides (not counting the clone)
+        let isTransitioning = false;
 
-        function updateCarousel() {
+        function updateCarousel(immediate = false) {
             const carousel = document.getElementById('carousel');
             const indicators = document.querySelectorAll('.carousel-indicator');
 
+            if (immediate) {
+                carousel.style.transition = 'none';
+            } else {
+                carousel.style.transition = 'transform 0.5s ease-in-out';
+            }
+
             carousel.style.transform = `translateX(-${currentSlide * 100}%)`;
 
+            // Update indicators based on real position (0-2)
+            const realIndex = currentSlide >= totalSlides ? 0 : currentSlide;
             indicators.forEach((indicator, index) => {
-                if (index === currentSlide) {
+                if (index === realIndex) {
                     indicator.classList.add('bg-white');
                     indicator.classList.remove('bg-white/40');
                 } else {
@@ -388,16 +421,51 @@
         }
 
         function nextSlide() {
-            currentSlide = (currentSlide + 1) % totalSlides;
+            if (isTransitioning) return;
+            isTransitioning = true;
+
+            currentSlide++;
             updateCarousel();
+
+            // If we're on the cloned slide (index 3), reset to the real first slide after transition
+            if (currentSlide === totalSlides) {
+                setTimeout(() => {
+                    currentSlide = 0;
+                    updateCarousel(true);
+                    setTimeout(() => {
+                        isTransitioning = false;
+                    }, 50);
+                }, 500);
+            } else {
+                setTimeout(() => {
+                    isTransitioning = false;
+                }, 500);
+            }
         }
 
         function prevSlide() {
-            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
-            updateCarousel();
+            if (isTransitioning) return;
+            isTransitioning = true;
+
+            currentSlide--;
+
+            // If we're going before the first slide, jump to the last real slide
+            if (currentSlide < 0) {
+                currentSlide = totalSlides - 1;
+                updateCarousel(true);
+                setTimeout(() => {
+                    isTransitioning = false;
+                }, 50);
+            } else {
+                updateCarousel();
+                setTimeout(() => {
+                    isTransitioning = false;
+                }, 500);
+            }
         }
 
         function goToSlide(index) {
+            if (isTransitioning) return;
             currentSlide = index;
             updateCarousel();
         }
