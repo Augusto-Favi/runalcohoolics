@@ -471,7 +471,7 @@
         }
 
         // Auto-play carousel
-        let autoplayInterval = setInterval(nextSlide, 5000);
+        let autoplayInterval = setInterval(nextSlide, 8000);
 
         // Pause autoplay on hover
         document.querySelector('.carousel-wrapper')?.addEventListener('mouseenter', () => {
@@ -479,7 +479,7 @@
         });
 
         document.querySelector('.carousel-wrapper')?.addEventListener('mouseleave', () => {
-            autoplayInterval = setInterval(nextSlide, 5000);
+            autoplayInterval = setInterval(nextSlide, 8000);
         });
 
         // Touch support for mobile
@@ -613,13 +613,21 @@
 
                             }
 
-        
 
-                            target.scrollIntoView({
 
-                                behavior: 'smooth',
+                            // Calculate position with navbar offset
 
-                                block: 'start'
+                            const navbarHeight = document.querySelector('nav').offsetHeight;
+
+                            const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navbarHeight;
+
+
+
+                            window.scrollTo({
+
+                                top: targetPosition,
+
+                                behavior: 'smooth'
 
                             });
 
