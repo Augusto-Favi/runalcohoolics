@@ -32,7 +32,7 @@
 </head>
 <body>
     <!-- Navigation -->
-    <nav class="fixed top-0 left-0 right-0 bg-dark/95 backdrop-blur-md z-50 border-b-2 border-gold" style="background: rgba(26, 26, 26, 0.95); border-color: var(--accent-gold);">
+    <nav class="fixed top-0 left-0 right-0 bg-dark/95 backdrop-blur-md z-50 border-b-2 border-gold" style="background: rgba(26, 26, 26, 0.95); border-color: var(--accent-gold); transition: transform 0.3s ease-in-out;">
         <div class="container mx-auto px-4 py-4">
             <div class="flex justify-between items-center">
                 <div class="logo-container">
@@ -544,6 +544,31 @@
         // Initialize carousel
         updateCarousel();
 
+        // Hide/show navbar on scroll
+        let lastScrollTop = 0;
+        const navbar = document.querySelector('nav');
+        const scrollThreshold = 100; // Start hiding after scrolling 100px
+
+        window.addEventListener('scroll', function() {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+            // Only hide navbar after scrolling past threshold
+            if (scrollTop > scrollThreshold) {
+                if (scrollTop > lastScrollTop) {
+                    // Scrolling down
+                    navbar.style.transform = 'translateY(-100%)';
+                } else {
+                    // Scrolling up
+                    navbar.style.transform = 'translateY(0)';
+                }
+            } else {
+                // Always show navbar at the top
+                navbar.style.transform = 'translateY(0)';
+            }
+
+            lastScrollTop = scrollTop;
+        });
+
         // Mobile menu toggle
         const menu = document.getElementById('mobileMenu');
         const hamburger = document.querySelector('.hamburger');
@@ -662,17 +687,29 @@
 
                             const performScroll = () => {
 
-                                // Calculate position with navbar offset
+                                const currentScrollPos = window.pageYOffset || document.documentElement.scrollTop;
+
+                                const targetPosition = target.getBoundingClientRect().top + currentScrollPos;
+
+
+
+                                // Determine if we're scrolling up or down
+
+                                const scrollingDown = targetPosition > currentScrollPos;
+
+
+
+                                // Only add navbar offset if scrolling up (navbar will be visible)
 
                                 const navbarHeight = document.querySelector('nav').offsetHeight;
 
-                                const targetPosition = target.getBoundingClientRect().top + window.pageYOffset - navbarHeight;
+                                const offset = scrollingDown ? 0 : navbarHeight;
 
 
 
                                 window.scrollTo({
 
-                                    top: targetPosition,
+                                    top: targetPosition - offset,
 
                                     behavior: 'smooth'
 
